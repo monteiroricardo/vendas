@@ -10,8 +10,6 @@ class HomeView extends StatefulWidget {
   _HomeViewState createState() => _HomeViewState();
 }
 
-GlobalKey<ScaffoldState> homeKey = GlobalKey<ScaffoldState>();
-
 class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {

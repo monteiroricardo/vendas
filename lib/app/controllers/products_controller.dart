@@ -9,9 +9,11 @@ class ProductsController extends ChangeNotifier {
   List<ProductModel> get products => [..._products];
   int get productsLength => _products.length;
 
-  Future<bool> newProduct(ProductModel prod) async {
+  ProductModel newProductModel = ProductModel(name: '', price: 0);
+
+  Future<bool> newProduct() async {
     try {
-      _products.add(prod);
+      _products.add(newProductModel);
       File productsPath = await getProductsPath();
       List<Map<dynamic, dynamic>> data =
           _products.map((element) => element.toMap()).toList();

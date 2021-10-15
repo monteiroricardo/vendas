@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:vendas/app/controllers/clients_controller.dart';
 import 'package:vendas/app/controllers/products_controller.dart';
+import 'package:vendas/app/controllers/requests_controller.dart';
 import 'package:vendas/app/routes/constantes.dart';
 
 class SplashView extends StatefulWidget {
@@ -20,6 +22,8 @@ class _SplashViewState extends State<SplashView> {
   @override
   void initState() {
     Provider.of<ProductsController>(context, listen: false).readProducts();
+    Provider.of<ClientsController>(context, listen: false).readClients();
+    Provider.of<RequestsController>(context, listen: false).readRequests();
     super.initState();
   }
 

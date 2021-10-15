@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:vendas/app/controllers/products_controller.dart';
+import 'package:vendas/app/controllers/clients_controller.dart';
+import 'package:vendas/app/models/client_model.dart';
 
-import 'package:vendas/app/models/product_model.dart';
-
-class ProductItemWidget extends StatelessWidget {
-  final ProductModel prod;
+class ClientItemWidget extends StatelessWidget {
+  final ClientModel cli;
   final int index;
-  const ProductItemWidget({
+  const ClientItemWidget({
     Key? key,
-    required this.prod,
+    required this.cli,
     required this.index,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final productController = Provider.of<ProductsController>(context);
+    final clientsController = Provider.of<ClientsController>(context);
     return Row(
       children: [
         Expanded(
@@ -45,7 +44,7 @@ class ProductItemWidget extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            prod.name,
+                            cli.name,
                             style: TextStyle(
                               fontSize: 20,
                               fontFamily: 'Bw-Bold',
@@ -61,7 +60,7 @@ class ProductItemWidget extends StatelessWidget {
                             color: Colors.black38,
                           ),
                           Text(
-                            'R\$ ${prod.price.toStringAsFixed(2)}',
+                            cli.number!,
                             style: TextStyle(
                               fontSize: 15,
                               fontFamily: 'Bw-Bold',
@@ -77,59 +76,58 @@ class ProductItemWidget extends StatelessWidget {
             ),
           ),
         ),
-        Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(
-              12,
-            ),
-          ),
-          child: SizedBox(
-            width: 50,
-            height: 75,
-            child: IconButton(
-              // onPressed: () async {
-              //   viewController.setLoading();
-              //   await productController.removeProduct(index);
-              //   viewController.setLoading();
-              // },
-              onPressed: () => showDialog(
-                  context: context,
-                  builder: (ctx) => AlertDialog(
-                        title: const Text('Excluir'),
-                        actions: [
-                          ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              primary: Colors.greenAccent[400],
-                            ),
-                            onPressed: () async {
-                              await productController.removeProduct(index);
+        InkWell(
+          borderRadius: BorderRadius.circular(12),
+          // onTap: () async {
+          //   viewController.setLoading();
+          //   await clientsController.removeClient(index);
+          //   viewController.setLoading();
+          // },
+          onTap: () => showDialog(
+              context: context,
+              builder: (ctx) => AlertDialog(
+                    title: const Text('Excluir'),
+                    actions: [
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.greenAccent[400],
+                        ),
+                        onPressed: () async {
+                          await clientsController.removeClient(index);
 
-                              Navigator.pop(context);
-                            },
-                            child: const Text(
-                              'Sim',
-                              style: TextStyle(
-                                  fontFamily: 'Baloo-Bold',
-                                  color: Colors.white),
-                            ),
-                          ),
-                          ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              primary: Colors.redAccent[400],
-                            ),
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: const Text(
-                              'Não',
-                              style: TextStyle(
-                                  fontFamily: 'Baloo-Bold',
-                                  color: Colors.white),
-                            ),
-                          ),
-                        ],
-                      )),
-              icon: Icon(
+                          Navigator.pop(context);
+                        },
+                        child: const Text(
+                          'Sim',
+                          style: TextStyle(
+                              fontFamily: 'Baloo-Bold', color: Colors.white),
+                        ),
+                      ),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.redAccent[400],
+                        ),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text(
+                          'Não',
+                          style: TextStyle(
+                              fontFamily: 'Baloo-Bold', color: Colors.white),
+                        ),
+                      ),
+                    ],
+                  )),
+          child: Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(
+                12,
+              ),
+            ),
+            child: SizedBox(
+              width: 50,
+              height: 75,
+              child: Icon(
                 FontAwesomeIcons.trash,
                 color: Colors.redAccent[400]!.withOpacity(
                   0.7,

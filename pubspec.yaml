@@ -28,10 +28,14 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   cupertino_icons: ^1.0.2
+  dotted_border: ^2.0.0+1
   flutter:
+    sdk: flutter
+  flutter_localizations:
     sdk: flutter
   flutter_feather_icons: ^2.0.0+1
   font_awesome_flutter: ^9.1.0
+  intl: ^0.17.0
   path_provider: ^2.0.5
   provider: ^6.0.1
 
@@ -62,10 +66,16 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
+  fonts:
+    - family: Bw-Regular
+      fonts:
+        - asset: assets/fonts/BwModelica/BwModelica-Regular.otf
+    - family: Bw-Medium
+      fonts:
+        - asset: assets/fonts/BwModelica/BwModelica-Medium.otf
+    - family: Bw-Bold
+      fonts:
+        - asset: assets/fonts/BwModelica/BwModelica-Bold.otf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

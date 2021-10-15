@@ -3,23 +3,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:vendas/app/controllers/products_controller.dart';
+import 'package:vendas/app/controllers/clients_controller.dart';
 import 'package:vendas/app/controllers/view_controller.dart';
-import 'package:vendas/app/views/home/widgets/products/widgets/product_item_widget.dart';
+import 'package:vendas/app/views/home/widgets/clients/widgets/client_item_widget.dart';
 
-class ProductsWidget extends StatefulWidget {
-  const ProductsWidget({Key? key}) : super(key: key);
+class ClientsWidget extends StatefulWidget {
+  const ClientsWidget({Key? key}) : super(key: key);
 
   @override
-  State<ProductsWidget> createState() => _ProductsWidgetState();
+  State<ClientsWidget> createState() => _ClientsWidgetState();
 }
 
-class _ProductsWidgetState extends State<ProductsWidget> {
-  GlobalKey<FormState> productsKey = GlobalKey<FormState>();
+class _ClientsWidgetState extends State<ClientsWidget> {
+  GlobalKey<FormState> clientsKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    final productController = Provider.of<ProductsController>(context);
+    final clientController = Provider.of<ClientsController>(context);
     final viewController = Provider.of<ViewController>(context);
     void newProduct() {
       showModalBottomSheet(
@@ -36,14 +36,14 @@ class _ProductsWidgetState extends State<ProductsWidget> {
             ),
           ),
           child: Form(
-            key: productsKey,
+            key: clientsKey,
             child: Column(
               children: [
                 TextFormField(
                   validator: (value) {
                     if (value != null) {
                       if (value.trim().isNotEmpty) {
-                        productController.newProductModel.name = value;
+                        clientController.newClientModel.name = value;
                         return null;
                       } else {
                         return 'campo vazio';
@@ -66,8 +66,7 @@ class _ProductsWidgetState extends State<ProductsWidget> {
                   validator: (value) {
                     if (value != null) {
                       if (value.trim().isNotEmpty) {
-                        productController.newProductModel.price =
-                            double.parse(value);
+                        clientController.newClientModel.number = value;
                         return null;
                       } else {
                         return 'campo vazio';
@@ -80,7 +79,7 @@ class _ProductsWidgetState extends State<ProductsWidget> {
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     label: Text(
-                      'Preço',
+                      'WhatsApp',
                     ),
                   ),
                 ),
@@ -90,9 +89,9 @@ class _ProductsWidgetState extends State<ProductsWidget> {
                       primary: Colors.blueAccent,
                       minimumSize: const Size(double.infinity, 50)),
                   onPressed: () async {
-                    if (productsKey.currentState!.validate()) {
+                    if (clientsKey.currentState!.validate()) {
                       viewController.setLoading();
-                      if (await productController.newProduct()) {
+                      if (await clientController.newClient()) {
                         Navigator.pop(context);
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
@@ -133,7 +132,7 @@ class _ProductsWidgetState extends State<ProductsWidget> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Meus Produtos',
+                'Meus Clientes',
                 style: TextStyle(
                   fontSize: 25,
                   fontWeight: FontWeight.bold,
@@ -145,11 +144,11 @@ class _ProductsWidgetState extends State<ProductsWidget> {
               ),
               Expanded(
                 child: ListView.builder(
-                  itemCount: productController.productsLength,
+                  itemCount: clientController.clientsLength,
                   itemBuilder: (ctx, index) {
-                    final prod = productController.products[index];
-                    return ProductItemWidget(
-                      prod: prod,
+                    final cli = clientController.clients[index];
+                    return ClientItemWidget(
+                      cli: cli,
                       index: index,
                     );
                   },
